@@ -1,0 +1,13 @@
+---
+- name: Main file
+  become: yes
+  hosts: all
+  tasks: 
+  - name: test connection to servers
+    ping: 
+  - include_tasks: tasks/CentOS.yml
+    when: ansible_distribution == 'CentOS'
+  - include_tasks: tasks/Ubuntu.yml
+    when: ansible_distribution == 'Ubuntu'
+    
+...

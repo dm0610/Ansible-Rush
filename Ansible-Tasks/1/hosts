@@ -1,0 +1,9 @@
+[tomcat-group]
+centos64-1 ansible_host=192.168.1.101 
+
+[httpd_group]
+centos64-2 ansible_host=192.168.1.102
+
+[nginx_group]
+centos64_3 ansible_host=192.168.1.103
+

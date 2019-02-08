@@ -1,0 +1,25 @@
+---
+- name: install packages
+  block:
+   - name: manage firewall
+     firewalld:
+       port: "{{ item }}"
+       permanent: yes
+       zone: public
+       immediate: yes
+       state: enabled
+     with_items:
+       - 80/tcp
+       - 443/tcp
+   - name: install httpd
+     package:
+       name: httpd
+       state: latest
+
+   - name: start service httpd
+     service:
+       name: httpd
+       state: started
+     
+  when: inventory_hostname in groups['httpd_group']
+... 
