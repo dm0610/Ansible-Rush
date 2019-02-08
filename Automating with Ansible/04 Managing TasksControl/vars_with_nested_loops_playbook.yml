@@ -1,0 +1,19 @@
+---
+- name: vars with nested loops playbook
+  hosts: all
+  vars: 
+   users:
+     - linda
+     - anna
+   groups:
+     - students
+     - profs
+  tasts:
+   - name: using vars with nested loops
+     user:
+       name: "{{ item[0] }}"
+       state: present
+       groups: "{{ item[1] }}"
+     with_nested:
+       - "{{ users }}"
+       - "{{ groups }}"

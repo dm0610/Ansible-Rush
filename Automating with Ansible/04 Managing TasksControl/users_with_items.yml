@@ -1,0 +1,12 @@
+---
+- name: manage users ang groups membership
+  hosts: all
+  tasts:
+   - name: create user and add to groups
+     user:
+       name: "{{ item.name }}"
+       state: present
+       groups: "{{ item.group }}"
+     with_item:
+       - { name: 'linda', group: 'studens' }
+       - { name: 'anna', group: 'profs' }

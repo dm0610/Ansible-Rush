@@ -1,0 +1,29 @@
+--/
+- name: Dealing with Errors playbook 
+  hosts: all
+  tasks:
+     - name: error Handling
+       package: 
+         name:boris
+         state: latest
+       ignore_errors: yes
+       
+     - name: Executing Handlers after task failure
+       command: /bin/yes
+       notify: handlera
+     
+     handlers: 
+        - name: handlera
+            command: /bin/true
+            
+            
+  tasks:
+     - name: Using failed_when
+       shell: /usr/local/bin/mkusr.shell
+       register: mkusr_result
+       failed_when: "'Password missing' in mkusr_result.stdout"
+       
+  tasks:
+     - name: changed_when
+       shell: wall 'beep'
+       changed_when: false

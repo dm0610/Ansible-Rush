@@ -1,0 +1,6 @@
+db_primary_host : 
+db_name         : widget_staging
+db_user         : widgetuser
+db_password     : password123
+rabbitmq_host   : 
+rabbitmq_port   : 5672

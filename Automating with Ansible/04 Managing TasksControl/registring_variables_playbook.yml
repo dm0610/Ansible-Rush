@@ -1,0 +1,25 @@
+---
+- name: registring variables playbook
+  hosts: all
+  tasks:
+     - name: capture out of the who command
+       command: who
+       register: loggedin
+       shell: echo "user ansible is logged in"
+       when: loggedin.stdout.find('ansible') != -1
+    
+- name: registered vars usage as a loop list
+  hosts: all
+  tasks: 
+     - name: create the backup spooler directory
+       file: /var/bkspool
+       state: directory
+     - name: retrieve the list of home directories
+       command: ls /home
+       register: home_dirs
+     - name: add home dirs to the backup spooler
+       file:
+          path: /var/bkspool/{{ item }}
+          src: /home/{{ item }}
+          state: link
+       loop: "{{ home.dirs.stdout_lines }}"

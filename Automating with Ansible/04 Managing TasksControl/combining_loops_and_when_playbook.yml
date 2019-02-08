@@ -1,0 +1,20 @@
+---
+- name: install vsftpd of sufficient space on /var/ftp
+  hosts: all
+  tasks:
+     - name: install
+       package: 
+          name: vsftpd
+          state: latest
+       with_items: "{{ ansible_mounts }}"
+       when: item.mount=="/var/ftp" and item.size.available > 100000000
+     - name: vsftpd status
+       command: /usr/bin/systemctl is-active vsftpd
+       ignoge_errors: yes
+       register: result
+       
+     - name: create file in ftp doc root
+       copy:
+          src: /etc/hosts
+          dest: /vars/ftp/pub
+       when: result.rc ==  0

@@ -1,0 +1,12 @@
+---
+- name: nested loops playbook
+  hosts: all
+  tasts:
+   - name: using nested loops
+     user:
+       name: "{{ item[0] }}"
+       state: present
+       groups: "{{ item[1] }}"
+     with_nested:
+       - [ 'linda','anna' ]
+       - [ 'students','profs' ]

@@ -1,0 +1,28 @@
+---
+- name: vars with nested loops playbook
+  hosts: all
+  vars: 
+   startme: true
+   my_user: linda
+   superusers:
+     - root
+     - linda
+   to_install: httpd
+   
+  tasks:
+   - name: install samba
+     package: 
+       name: samba
+       state: present
+     when: startme
+     
+   - name: run only if linda is in superuser
+     user: 
+       name: "{{ my_user }}"
+       state: present
+     when: my_user in superusers
+     
+   - name: install program
+     package:
+        name: "{{ to_install }}"
+     when: to_install is defined

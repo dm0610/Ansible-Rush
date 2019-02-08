@@ -1,0 +1,49 @@
+
+Запись Ролей в плейбуке
+
+---
+
+- hosts: all
+  roles: 
+    - role1
+	- role2
+
+Роли могут включать зависимости и другие роли. 
+Зависимости записываются в meta/main.yml внутри роли
+
+--- 
+dependencies: 
+
+ - { role: apache, port: 80}
+ - { role: mariadb, dbname: addresses, admin_user: bob }
+ 
+Pre/Post tasks:
+
+---
+- hosts: all
+  pre_tasks: 
+    - debug:
+	   msg: 'starting'
+  roles: 
+    - role1
+	- role2
+  tasks:
+    - debug:
+	   msg: 'still working'
+  post_tasks: 
+    - debug:
+	   msg: 'goodbye'
+	   
+	   
+Role Structure Example:
+
+roles/
+|--motd
+   |--defaults
+   |  |--main.yml
+   |--files
+   |--handlers
+   |--tasks
+   |  |--main.yml
+   |--templates
+      |--motd.j2

@@ -1,0 +1,31 @@
+--/
+- name: blocks playbook 
+  hosts: all
+  tasks:
+     - name: block1
+       block:
+         - package:
+             name: "{{ item }}"
+             state: installed
+           with_items:
+              - httpd
+              - elinks
+              - mod_ssl
+         - service:
+             name: httpd
+             state: started
+             enable: true
+       when: ansible_distribution == 'CentOS'
+# error handling  
+  tasks:
+    - block:
+       - name: upgrade the database
+         shell: 
+            cmd: /usr/local/lib/upgrade-database
+       rescue:
+       - name: revert after failure
+         shell: 
+           cmd: /usr/local/lib/revert-database
+       always:
+       - name: mariadb
+         state: restarted

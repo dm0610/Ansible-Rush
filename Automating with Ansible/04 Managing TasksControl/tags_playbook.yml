@@ -1,0 +1,24 @@
+---
+- name: tag playbook
+  hosts: all
+  tasks:
+     - name: install utilities
+       yum: 
+         name: "{{ item }}"
+         state: present
+       with_item: 
+         - nmap
+         - wireshark
+       tags: 
+         - net_analisys
+       
+     - name: install lamp packages
+       package:
+          name: "{{ item }}"
+          state: started
+       with_items: 
+          - mariadb-server
+          - httpd
+       tags: 
+          - lamp
+...

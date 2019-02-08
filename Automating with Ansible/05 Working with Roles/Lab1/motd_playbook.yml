@@ -1,0 +1,8 @@
+---
+- name: use motd role playbook
+  hosts: server.example.com
+  user: ansible
+  become: true
+  
+  roles: 
+    - motd

@@ -1,0 +1,12 @@
+db:
+  primary:
+    host: db1.example.com
+    port: 5432
+  replica:
+    host: db2.example.com
+	port: 5432
+  name: widget_production
+  user: widgetuser
+  password: lsdklkg_lkdsfjg
+rabbitmq_host : rabbit1.example.com
+rabbitmq_port : 5672
