@@ -1,0 +1,5 @@
+instance_type: t2.micro
+image: ami-0cd3dfa4e37921605
+security_group: ec2_ansible_tomcat
+region: us-east-2a
+count: 1

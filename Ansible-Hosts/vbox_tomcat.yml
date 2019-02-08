@@ -1,0 +1,10 @@
+---
+- name: Configuration of vagrant tomcat hosts
+  hosts: vagrant_tomcat_group
+  become: yes
+
+  tasks:
+  - name: ping 
+    ping:
+
+...
