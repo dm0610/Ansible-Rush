@@ -1,0 +1,12 @@
+---
+
+vars:
+    web_services:
+        - httpd
+        - vsftpd
+tasks:
+    - name: start werb services
+      service:
+          name: "{{ item }}"
+          state: started
+      with_items: "{{ web_services }}"

@@ -1,0 +1,46 @@
+---
+- name: Deploy and start apache
+  hosts: ansible2.example.com
+  vars: 
+      httpd_package: httpd
+      firewall_package: firewalld
+      httpd_service: httpd
+      firewalld_service: firewalld
+      web_rule: http
+      index_content: "hello to my super duper web site ;)"
+      system_owner: dm.strelnikov@yandex.ru
+  tasks:
+      - name: install apache webserver
+        yum:
+            name:
+                - "{{ httpd_package }}"
+                - "{{firewall_package}}"
+            state: latest
+      - name: enable and start firewalld
+        yum:
+            name: "{{ firewall_package }}"
+            enabled: true
+            state: started
+      - template: 
+            src: http.j2
+            dest: /etc/httpd/conf.d
+            owner: root
+            group: root
+            mode: 0644
+            
+      - name: create index.html
+        copy:
+            content: "{{ httpd_package }}"
+            dest: /var/www/html/index.html
+      - name: install apache webserver
+        yum:
+            name: "{{ httpd_package }}"
+            enabled: true
+            state: started
+      - name: create http rule
+        firewalld:
+            service: "{{ web_rule }}"
+            permanent: true
+            immediate: true
+            state: enabled 
+             

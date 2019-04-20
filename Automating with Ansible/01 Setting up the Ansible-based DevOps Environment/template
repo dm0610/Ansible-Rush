@@ -1,0 +1,8 @@
+Listen *:80
+NameVirtualHost host.example.com
+
+<VirtualHost *:80>
+    ServerName host.example.com
+    DocumentRoot /var/www/html
+    ServerAdmin dm.strelnikov@yandex.ru
+<VirtualHost>

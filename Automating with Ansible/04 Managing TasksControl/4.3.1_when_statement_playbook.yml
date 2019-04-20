@@ -15,13 +15,13 @@
        name: samba
        state: present
      when: startme
-     
+
    - name: run only if linda is in superuser
      user: 
        name: "{{ my_user }}"
        state: present
      when: my_user in superusers
-     
+
    - name: install program
      package:
         name: "{{ to_install }}"
